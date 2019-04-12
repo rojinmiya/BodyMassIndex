@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
     EditText etHeight, etWeight;
     Button btnCalculate;
@@ -35,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
                     BMI bmi = new BMI(height, weight);
                     float result = bmi.Calculate();
-                    tvOutput.setText(Float.toString(result));
+                    tvOutput.setText(new DecimalFormat("##.#").format(result));
+
+                    //tvOutput.setText(Float.toString(result));
                     if (result < 18.5) {
                         Toast.makeText(MainActivity.this, "UnderWeight", Toast.LENGTH_SHORT).show();
-                    } else if (result > 18.4 || result < 25) {
-                        Toast.makeText(MainActivity.this, "Normal Weight", Toast.LENGTH_SHORT).show();
-                    } else if (result > 24.9 || result < 30) {
+                    } else if (result > 18.4 && result < 25) {
+                        Toast.makeText(MainActivity.this, "Normal Weight", Toast.LENGTH_LONG).show();
+                    } else if (result > 24 && result < 30) {
                         Toast.makeText(MainActivity.this, "OverWeight", Toast.LENGTH_SHORT).show();
                     } else if (result > 30) {
                         Toast.makeText(MainActivity.this, "Obesity", Toast.LENGTH_SHORT).show();
@@ -51,28 +55,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        }
+    }
 
 
+    public boolean check() {
+        boolean isValid = true;
 
-    public boolean check(){
-        boolean isValid=true;
 
-
-        if(TextUtils.isEmpty(etHeight.getText().toString())) {
+        if (TextUtils.isEmpty(etHeight.getText().toString())) {
             etHeight.setError("Enter Height");
             etHeight.requestFocus();
-            isValid=false;
+            isValid = false;
 
-        }
-
-
-        else if(TextUtils.isEmpty(etWeight.getText().toString())){
-            etWeight.setError("Enter rate");
+        } else if (TextUtils.isEmpty(etWeight.getText().toString())) {
+            etWeight.setError("Enter Weight");
             etWeight.requestFocus();
-            isValid=false;
-  }
-
+            isValid = false;
+        }
 
 
         return isValid;

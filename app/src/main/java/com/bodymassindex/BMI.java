@@ -11,9 +11,9 @@ public class BMI {
         this.weight = weight;
     }
 
-    public float Calculate(){
-        meter=(height/100);
-        bmi=weight/(meter*meter);
+    public float Calculate() {
+        meter = (height / 100);
+        bmi = weight / (meter * meter);
         return bmi;
 
 
